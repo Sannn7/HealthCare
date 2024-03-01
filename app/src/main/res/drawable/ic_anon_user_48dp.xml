@@ -6,8 +6,8 @@
         <shape android:shape="oval">
             <solid android:color="#E0E0E0" />
             <size
-                android:width="48dp"
-                android:height="48dp" />
+                android:width="20dp"
+                android:height="40dp" />
         </shape>
     </item>
     <item
@@ -17,8 +17,8 @@
         android:top="4dp">
         <aapt:attr name="android:drawable">
             <vector
-                android:width="44dp"
-                android:height="44dp"
+                android:width="20dp"
+                android:height="20dp"
                 android:viewportHeight="24.0"
                 android:viewportWidth="24.0"
                 tools:targetApi="lollipop">

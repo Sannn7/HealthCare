@@ -40,6 +40,7 @@ public class SearchPatActivity extends AppCompatActivity {
 
     private DoctorAdapterFiltred adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +94,10 @@ public class SearchPatActivity extends AppCompatActivity {
         SpannableString sb = new SpannableString(" vaccine" );
         ImageSpan imageSpan = new ImageSpan(r, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //menu.findItem(R.id.empty).setTitle(sb);
+        menu.findItem(R.id.empty).setTitle(sb);
 
         SearchView searchView = (SearchView) searchItem.getActionView();
+        assert searchView != null;
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setQueryHint(Html.fromHtml("<font color = #000000>" + "Search patient" + "</font>"));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

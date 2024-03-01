@@ -3,6 +3,7 @@ package com.ensias.healthcareapp;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,6 +70,7 @@ public class EditProfilePatientActivity extends AppCompatActivity {
         doctorPhone = findViewById(R.id.phoneText);
         ///doctorEmail = findViewById(R.id.emailText);
         doctorAddress = findViewById(R.id.addressText);
+        Drawable defaultImage = getResources().getDrawable(R.drawable.ic_person);
 
         pStorageRef = FirebaseStorage.getInstance().getReference("DoctorProfile");
         pDatabaseRef = FirebaseDatabase.getInstance().getReference("DoctorProfile");
@@ -79,6 +81,7 @@ public class EditProfilePatientActivity extends AppCompatActivity {
         String current_phone = intent.getStringExtra("CURRENT_PHONE");
         String current_address = intent.getStringExtra("CURRENT_ADDRESS");
 
+        profileImage.setImageDrawable(defaultImage);
         //Set the default informtions in he text fields
         doctorName.setText(current_name);
         doctorPhone.setText(current_phone);
@@ -96,7 +99,7 @@ public class EditProfilePatientActivity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 Picasso.with(EditProfilePatientActivity.this)
                         .load(uri)
-                        .placeholder(R.drawable.doctor)
+                        .placeholder(R.drawable.ic_person)
                         .fit()
                         .centerCrop()
                         .into(profileImage);//Store here the imageView

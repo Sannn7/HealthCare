@@ -15,12 +15,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity {
     Button SignOutBtn;
-    Button searchPatBtn;
+    Button searchBtn;
     Button myDoctors;
     Button BtnRequst;
     Button profile;
     Button appointment;
     Button remindmeappoint;
+    Button chatbotBtn;
     Button aware;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        searchPatBtn = (Button)findViewById(R.id.searchBtn);
-        searchPatBtn.setOnClickListener(new View.OnClickListener() {
+        searchBtn = findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent k = new Intent(HomeActivity.this, SearchPatActivity.class);
@@ -90,6 +91,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent k = new Intent(HomeActivity.this, ProfilePatientActivity.class);
+                startActivity(k);
+            }
+        });
+
+        chatbotBtn = findViewById(R.id.chatbotBtn);
+        chatbotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent k = new Intent(HomeActivity.this, chatbot.class);
                 startActivity(k);
             }
         });

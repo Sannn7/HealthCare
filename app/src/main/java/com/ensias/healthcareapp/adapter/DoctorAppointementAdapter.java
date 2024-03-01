@@ -66,53 +66,109 @@ public class DoctorAppointementAdapter extends FirestoreRecyclerAdapter<Apointem
 
 
 
+//        myDoctorAppointementHolder.approveBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                apointementInformation.setType("Accepted");
+//                FirebaseFirestore.getInstance().collection("Patient").document(apointementInformation.getPatientId()).collection("calendar")
+//                        .document(apointementInformation.getTime().replace("/","_")).set(apointementInformation);
+//                FirebaseFirestore.getInstance().document(apointementInformation.getChemin()).update("type","Accepted");
+//                FirebaseFirestore.getInstance().collection("Doctor").document(apointementInformation.getDoctorId()).collection("calendar")
+//                        .document(apointementInformation.getTime().replace("/","_")).set(apointementInformation);
+//
+//
+//
+//
+////////////// here add patient friend to doctor
+//
+//                FirebaseFirestore.getInstance().document("Patient/"+apointementInformation.getPatientId()).get()
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                FirebaseFirestore.getInstance().collection("Doctor").document(apointementInformation.getDoctorId()+"")
+//                                        .collection("MyPatients").document(apointementInformation.getPatientId()).set(documentSnapshot.toObject(Patient.class));
+//                            }
+//                        });
+//                FirebaseFirestore.getInstance().document("Doctor/"+apointementInformation.getDoctorId()).get()
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                FirebaseFirestore.getInstance().collection("Patient").document(apointementInformation.getPatientId()+"")
+//                                        .collection("MyDoctors").document(apointementInformation.getPatientId()).set(documentSnapshot.toObject(Doctor.class));
+//                            }
+//                        });
+//
+//
+//
+//
+//                getSnapshots().getSnapshot(position).getReference().delete();
+//                String phoneNumber = "8928970742";
+//                String message = "Dear" +" " + apointementInformation.getPatientName() +","+
+//                         "Your appointment is accepted and appointment Scheduled for " +" " + apointementInformation.getApointementType() +" " + "on" +" " + apointementInformation.getTime() + ". Please check the status in applications.";
+//                SmsManager smsManager = SmsManager.getDefault();
+//                ArrayList<String> parts = smsManager.divideMessage(message);
+//                smsManager.sendMultipartTextMessage(phoneNumber, null, parts, null, null);
+//
+//            }
+//
+//
+//        });new my
+
+
         myDoctorAppointementHolder.approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apointementInformation.setType("Accepted");
-                FirebaseFirestore.getInstance().collection("Patient").document(apointementInformation.getPatientId()).collection("calendar")
-                        .document(apointementInformation.getTime().replace("/","_")).set(apointementInformation);
-                FirebaseFirestore.getInstance().document(apointementInformation.getChemin()).update("type","Accepted");
-                FirebaseFirestore.getInstance().collection("Doctor").document(apointementInformation.getDoctorId()).collection("calendar")
-                        .document(apointementInformation.getTime().replace("/","_")).set(apointementInformation);
+                // Assuming 'apointementInformation' contains the patient's ID
+                String patientId = apointementInformation.getPatientId();
 
-
-
-
-//////////// here add patient friend to doctor
-
-                FirebaseFirestore.getInstance().document("Patient/"+apointementInformation.getPatientId()).get()
+                // Retrieve the patient's document from Firestore
+                FirebaseFirestore.getInstance().collection("Patient").document(patientId).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                FirebaseFirestore.getInstance().collection("Doctor").document(apointementInformation.getDoctorId()+"")
-                                        .collection("MyPatients").document(apointementInformation.getPatientId()).set(documentSnapshot.toObject(Patient.class));
+                                if (documentSnapshot.exists()) {
+                                    // Retrieve the patient's phone number
+                                    String phoneNumber = documentSnapshot.getString("phoneNumber");
+
+                                    // Use the retrieved phone number to send a message
+                                    String message = "Dear " + apointementInformation.getPatientName() + ", Your appointment is accepted and scheduled for " + apointementInformation.getApointementType() + " on " + apointementInformation.getTime() + ". Please check the status in the application.";
+                                    sendSMS(phoneNumber, message);
+
+                                    // Proceed with updating Firestore and other tasks
+                                    apointementInformation.setType("Accepted");
+                                    FirebaseFirestore.getInstance().collection("Patient").document(apointementInformation.getPatientId()).collection("calendar")
+                                            .document(apointementInformation.getTime().replace("/", "_")).set(apointementInformation);
+                                    FirebaseFirestore.getInstance().document(apointementInformation.getChemin()).update("type", "Accepted");
+                                    FirebaseFirestore.getInstance().collection("Doctor").document(apointementInformation.getDoctorId()).collection("calendar")
+                                            .document(apointementInformation.getTime().replace("/", "_")).set(apointementInformation);
+
+                                    // Add patient as a friend to doctor
+                                    addPatientAsFriendToDoctor(apointementInformation.getDoctorId(), apointementInformation.getPatientId());
+
+                                    // Delete the appointment document
+                                    getSnapshots().getSnapshot(position).getReference().delete();
+                                } else {
+                                    Log.d("TAG", "No such document");
+                                }
                             }
-                        });
-                FirebaseFirestore.getInstance().document("Doctor/"+apointementInformation.getDoctorId()).get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                            private void addPatientAsFriendToDoctor(String doctorId, String patientId) {
+                            }
+
+                            private void sendSMS(String phoneNumber, String message) {
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                FirebaseFirestore.getInstance().collection("Patient").document(apointementInformation.getPatientId()+"")
-                                        .collection("MyDoctors").document(apointementInformation.getPatientId()).set(documentSnapshot.toObject(Doctor.class));
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("TAG", "Error getting documents: " + e);
                             }
                         });
-
-                
-
-
-                getSnapshots().getSnapshot(position).getReference().delete();
-                String phoneNumber = "8928970742";
-                String message = "Dear" +" " + apointementInformation.getPatientName() +","+
-                         "Your appointment is accepted and appointment Scheduled for " +" " + apointementInformation.getApointementType() +" " + "on" +" " + apointementInformation.getTime() + ". Please check the status in applications.";
-                SmsManager smsManager = SmsManager.getDefault();
-                ArrayList<String> parts = smsManager.divideMessage(message);
-                smsManager.sendMultipartTextMessage(phoneNumber, null, parts, null, null);
-
             }
-
-
         });
+
+
+
         myDoctorAppointementHolder.cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,6 @@
 package com.ensias.healthcareapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +28,12 @@ public class PatientInfoActivity extends AppCompatActivity {
     EditText weightBtn;
     Spinner bloodtypeSpinner;
     Button updateBtn;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
-        updateBtn = findViewById(R.id.updateInfoBtn);
+        updateBtn = findViewById(R.id.update);
         heightBtn = findViewById(R.id.heightBtn);
         weightBtn = findViewById(R.id.weightBtn);
         final Spinner specialiteList = (Spinner) findViewById(R.id.bloodType);
@@ -45,6 +47,7 @@ public class PatientInfoActivity extends AppCompatActivity {
 
         FirebaseFirestore.getInstance().collection("Patient").document(patient_email).collection("moreInfo")
                 .document(patient_email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 weightBtn.setText( ""+documentSnapshot.getString("weight"));
@@ -53,6 +56,7 @@ public class PatientInfoActivity extends AppCompatActivity {
                 specialiteList.setSelection(convertBloodToInt(documentSnapshot.getString("bloodType")));
             }
         });
+
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +73,10 @@ public class PatientInfoActivity extends AppCompatActivity {
             }
         });
        if(Common.CurrentUserType.equals("patient")){
-            updateBtn.setVisibility(View.GONE);
-            heightBtn.setEnabled(false);
-            weightBtn.setEnabled(false);
-            specialiteList.setEnabled(false);
+            updateBtn.setActivated(true);
+            heightBtn.setEnabled(true);
+            weightBtn.setEnabled(true);
+            specialiteList.setEnabled(true);
         }
     }
 

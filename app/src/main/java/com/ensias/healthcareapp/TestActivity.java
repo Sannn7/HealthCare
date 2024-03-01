@@ -152,18 +152,31 @@ public class TestActivity extends AppCompatActivity {
         localBroadcastManager.sendBroadcast(intent);
     }
 
+//    private void setColorButton() {
+//        if(btn_previous_step.isEnabled()){
+//            btn_previous_step.setBackgroundResource(R.color.design_default_color_primary_dark);
+//        }
+//        else{
+//            btn_previous_step.setBackgroundResource(R.color.colorAccent);
+//        }
+//        if(btn_next_step.isEnabled()){
+//            btn_next_step.setBackgroundResource(R.color.design_default_color_primary_dark);
+//        }
+//        else{
+//            btn_next_step.setBackgroundResource(R.color.colorAccent);
+//        }
+//    }
+
     private void setColorButton() {
-        if(btn_previous_step.isEnabled()){
-            btn_previous_step.setBackgroundResource(R.color.design_default_color_primary_dark);
+        if (btn_previous_step.isEnabled()) {
+            btn_previous_step.setBackgroundColor(getResources().getColor(R.color.design_default_color_primary_dark));
+        } else {
+            btn_previous_step.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         }
-        else{
-            btn_previous_step.setBackgroundResource(R.color.colorAccent);
-        }
-        if(btn_next_step.isEnabled()){
-            btn_next_step.setBackgroundResource(R.color.design_default_color_primary_dark);
-        }
-        else{
-            btn_next_step.setBackgroundResource(R.color.colorAccent);
+        if (btn_next_step.isEnabled()) {
+            btn_next_step.setBackgroundColor(getResources().getColor(R.color.design_default_color_primary_dark));
+        } else {
+            btn_next_step.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         }
     }
 

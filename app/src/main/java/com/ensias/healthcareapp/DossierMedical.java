@@ -34,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 public class DossierMedical extends AppCompatActivity {
     private final static String TAG = "DossierMedical";
-    private FloatingActionButton createNewFicheButton;
+    public FloatingActionButton createNewFicheButton;
     private String patient_email;
     private Button infobtn;
     private String patient_name;
@@ -71,8 +71,9 @@ public class DossierMedical extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openPatientInfo();
-            }
+            }  
         });
+        createNewFicheButton.setVisibility(View.VISIBLE);
 
         String imageId = patient_email+".jpg"; //add a title image
         pathReference = FirebaseStorage.getInstance().getReference().child("DoctorProfile/"+ imageId); //storage the image
@@ -94,7 +95,6 @@ public class DossierMedical extends AppCompatActivity {
                 // Handle any errors
             }
         });
-
 
     }
 

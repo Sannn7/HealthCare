@@ -62,7 +62,7 @@ public class ProfilePatientActivity extends AppCompatActivity {
         doctorAddress = findViewById(R.id.doctor_address);
         
         doctorImage = findViewById(R.id.imageView3);
-        Drawable defaultImage = getResources().getDrawable(R.drawable.ic_anon_user_48dp); //default user image
+        Drawable defaultImage = getResources().getDrawable(R.drawable.ic_person); //default user image
         AlertDialog dialog = new SpotsDialog.Builder().setContext(this).setCancelable(true).build();
         dialog.show();
 

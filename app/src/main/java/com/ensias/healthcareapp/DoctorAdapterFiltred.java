@@ -1,9 +1,13 @@
 package com.ensias.healthcareapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +16,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensias.healthcareapp.Common.Common;
+import com.ensias.healthcareapp.fragment.BookingStep1Fragment;
 import com.ensias.healthcareapp.model.Doctor;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -111,8 +117,7 @@ public class DoctorAdapterFiltred  extends RecyclerView.Adapter<DoctorAdapterFil
                 Common.CurrentDoctorName = doctor.getName();
                 Common.CurrentPhone = doctor.getTel();
                 openPage(v.getContext());
-
-            }
+                  }
         });
 
     }
@@ -177,7 +182,9 @@ public class DoctorAdapterFiltred  extends RecyclerView.Adapter<DoctorAdapterFil
         }
     }
     private void openPage(Context wf){
-        Intent i = new Intent(wf, TestActivity.class);
+//        Intent i = new Intent(wf, TestActivity.class);
+      //  Intent i = new Intent(wf, MyCalendarDoctorActivity.class); //Changed the TestActivity to MyCalenderDoctorActivity
+        Intent i = new Intent(wf, BookingStep1Fragment.class);
         wf.startActivity(i);
     }
 }

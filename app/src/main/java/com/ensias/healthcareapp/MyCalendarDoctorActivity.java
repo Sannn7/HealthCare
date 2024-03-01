@@ -126,6 +126,7 @@ public class MyCalendarDoctorActivity extends AppCompatActivity implements ITime
                                         for (QueryDocumentSnapshot document:task.getResult())
                                             timeSlots.add(document.toObject(TimeSlot.class));
                                         iTimeSlotLoadListener.onTimeSlotLoadSuccess(timeSlots);
+
                                     }
 
                                 }
@@ -164,3 +165,4 @@ public class MyCalendarDoctorActivity extends AppCompatActivity implements ITime
         alertDialog.dismiss();
     }
 }
+

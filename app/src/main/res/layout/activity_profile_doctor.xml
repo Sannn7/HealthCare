@@ -33,17 +33,16 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="413dp"
-        android:layout_height="262dp"
+        android:layout_width="280dp"
+        android:layout_height="189dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141"
-        app:srcCompat="@drawable/profile" />
+        app:layout_constraintVertical_bias="0.177"
+        app:srcCompat="@drawable/doctor" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

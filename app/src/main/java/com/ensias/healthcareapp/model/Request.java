@@ -9,6 +9,10 @@ public class Request {
 
     }
 
+    public Request(String idPat, String idDoc) {
+
+    }
+
     public String getHour_path() {
         return hour_path;
     }

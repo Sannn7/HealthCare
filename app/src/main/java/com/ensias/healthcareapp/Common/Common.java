@@ -22,6 +22,7 @@ public class Common {
     public static Calendar currentDate = Calendar.getInstance();
     public static String CurrentPhone = "062912361255";
     public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd_MM_yyyy");
+    public static String CurrentDoctor;
 
     public static int convertBloodToInt(String s){
         switch (s){
